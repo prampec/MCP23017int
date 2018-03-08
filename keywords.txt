@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map For MCP23017int
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MCP23017int	KEYWORD1
+MCP23017intButton	KEYWORD3
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+interruptOccurred	KEYWORD2
+checkInterrupt	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+MCP23017INT_BUTTON_ACTION_PRESSED LITERAL1
+MCP23017INT_BUTTON_ACTION_RELEASED LITERAL1
