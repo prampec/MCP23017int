@@ -38,9 +38,9 @@ void MCP23017int::begin(
   this->_buttons = buttons;
   this->_size = size;
 
-  pinMode(this->_arduinoPin, INPUT); // Initialize the interrupt pin as input
+  pinMode(this->_arduinoPin, INPUT_PULLUP); // Initialize the interrupt pin as input
 
-  this->_mcp->setupInterrupts(true, false, LOW);
+  this->_mcp->setupInterrupts(true, true, LOW);
 
   for(int i = 0; i < size; i++)
   {
