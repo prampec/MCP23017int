@@ -1,14 +1,14 @@
 /**
  * File: InterruptBasics.ino
  * Description:
- * MCP23017int is a library to make it easy to use the interrupts on MCP23017 port expander.
+ * MCP23017int is a library to make it easy to use the interrupts on the MCP23017 port expander.
  *
  * Author: Balazs Kelemen
  * Contact: prampec+arduino@gmail.com
  * Copyright: 2012 Balazs Kelemen
  * Copying permission statement:
     This file is part of MCP23017int.
-    PciManager is free software: you can redistribute it and/or modify
+    MCP23017int is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
@@ -23,7 +23,7 @@
     MCP23017 - GPA0 - connected to ground via a push button
     MCP23017 - GPA1 - connected to ground via a push button
     MCP23017 - A0,A1,A2 - connected to ground
-    MCP23017 - !RESET - connected to VCC vith a 10K resistor
+    MCP23017 - !RESET - connected to VCC via a 10K resistor
     
     MCP23017 Arduino
     INTA     D2
@@ -31,16 +31,16 @@
     SDA      A4
     GND      GND
 
-    Hardver notes:
+    Hardware notes:
     - You can add more push buttons if you like. See button mapping below.
-    - You can specify different i2c bus address with configuring the
-      A0,A1,A2 pins but you have the initialize the Adafruit_MCP23017 accordingly.
-    - You can connect either INTA or INTB or both to the arduino interrupt pin.
-    - You can choose any interrupt pin these are differs on different models.
-    - SCL and SDA might be mapped on a different pin of your arduino, please check!
+    - You can specify different I2C bus address by configuring the
+      A0,A1,A2 pins but you have to initialize the Adafruit_MCP23017 library accordingly.
+    - You can connect either INTA or INTB or both to the Arduino interrupt pin.
+    - You can choose any interrupt pin. These differ on different models.
+    - SCL and SDA might be mapped on a different pin of your Arduino, please check!
 
     MCP23017 port naming
-    #pin name Adafruite mapping (used here)
+    #pin name Adafruit mapping (used here)
     21   GPA0  0
     22   GPA1  1
     23   GPA2  2

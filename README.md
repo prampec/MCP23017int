@@ -4,15 +4,15 @@ With this library you can easily set up an interrupt based setup for the MCP2301
 
 ## Highlights
  - Non blocking solution
- - It utilizes the Adafruit_MCP23017 for driving the i2c communication.
- - Theoretically you can set up more MCP23017-s with different i2c ports. (In this case I recommend you to connect the interrupt pin to arduino via a 1K resistor to be on the safe side.)
+ - It utilizes the Adafruit_MCP23017 library for driving the I2C communication.
+ - Theoretically you can set up more MCP23017s with different I2C ports. (In this case I recommend you to connect the interrupt pin to Arduino via a 1K resistor to be on the safe side.)
  - Sets up MCP23017 interrupt pins as mirrored, so only one wire is required from either INTA or INTB.
  - Starts up input pins with internal pullups, so no external resistors required.
  - Both push and release are detected.
- - There can be simultaneously multiply buttons pressed and releases will be handled correctly.
+ - There can be multiple buttons simultaneously pressed and releases will be handled correctly.
 
 ## MCP23017 port naming
-#pin| name | Adafruite mapping (used here)
+#pin| name | Adafruit mapping (used here)
 ----|------|------------------------------
 21 | GPA0 | 0
 22 | GPA1 | 1
@@ -32,26 +32,26 @@ With this library you can easily set up an interrupt based setup for the MCP2301
 8 | GPB7 | 15
 
 ## Background
-The arduino interrupt pin was set to pullups, and MCP23017 interrupt output was set to open drain. This means, that when there is no data on interrupt pin, the level is pulled high by arduino, and MCP23017 pulls that down to ground, only when required.
+The Arduino interrupt pin is set to pullups, and MCP23017 interrupt output is set to open drain. This means, that when there is no data on the interrupt pin, the level is pulled high by the Arduino and the MCP23017 pulls that down to ground only when required.
 
-When a button push (FALLING) detected, the corresponding MCP23017 pin was reprogrammed to RISING detection.
+When a button press (FALLING) is detected, the corresponding MCP23017 pin is reprogrammed to RISING detection.
 
-Unfortunately there is a strange behaviour of the MCP23017. It keeps sending interrupts as long as the button is pressed, that is why the interrupt detection is changed runtime. Also, there is an "interrupt queue"-like thing inside, and interrupts will not work correctly until the interrupt buffer is cleared. So there are some extra hooks involved in the code for the interrupt cleanup.
+Unfortunately there is a strange behaviour of the MCP23017. It keeps sending interrupts as long as the button is pressed. That is why the interrupt detection is changed at runtime. Also, there is an "interrupt queue"-like thing inside, and interrupts will not work correctly until the interrupt buffer is cleared. So there are some extra hooks involved in the code for the interrupt cleanup.
 
 ## TODO
  - Test/support sleep and powerdown modes.
  - Investigate whether is it possible to eliminate extra interrupt-queue cleaning hooks.
  - Use different license for wider integration options.
 
-**Please fill free to post contribute!**
+**Please feel free to post contributions!**
 
 ## Tested on
-Library known to be working the following setups.
+Library known to be working with the following setups.
 
-Ide versions:
+IDE versions:
  - Arduino 1.8.5
  
 Hardware:
  - ESP8266
  
-**Please fill free to post an issue with your tested hardware!**
+**Please feel free to post an issue with your tested hardware!**

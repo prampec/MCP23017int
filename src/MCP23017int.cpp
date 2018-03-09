@@ -1,14 +1,14 @@
 /**
  * File: MCP23017int.cpp
  * Description:
- * MCP23017int is a library to make it easy to use the interrupts on MCP23017 port expander.
+ * MCP23017int is a library to make it easy to use the interrupts on the MCP23017 port expander.
  *
  * Author: Balazs Kelemen
  * Contact: prampec+arduino@gmail.com
  * Copyright: 2012 Balazs Kelemen
  * Copying permission statement:
     This file is part of MCP23017int.
-    PciManager is free software: you can redistribute it and/or modify
+    MCP23017int is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
@@ -52,7 +52,7 @@ void MCP23017int::begin(
   attachInterrupt(this->_arduinoPinInInterrupt, this->_interruptHandler, FALLING);
   while(MCP23017_INT_ERR != this->_mcp->getLastInterruptPinValue())
   {
-    // Some intrrupts may be left in buffer that should be cleared.
+    // Some interrupts may be left in buffer that should be cleared.
   }
 }
 
@@ -98,7 +98,7 @@ void MCP23017int::interruptOccurred()
 
 void MCP23017int::checkInterrupt()
 {
-  this->_mcp->getLastInterruptPinValue(); // Some intrrupts may be left in buffer that should be cleared to enable next interrupt.
+  this->_mcp->getLastInterruptPinValue(); // Some interrupts may be left in buffer that should be cleared to enable next interrupt.
   if (this->_awakenByInterrupt)
   {
     // disable interrupts while handling them.
