@@ -32,9 +32,26 @@ With this library you can easily set up an interrupt based setup for the MCP2301
 8 | GPB7 | 15
 
 ## Background
-When a push (FALLING) detected, the pin was reprogrammed to RISING detection.
+The arduino interrupt pin was set to pullups, and MCP23017 interrupt output was set to open drain. This means, that when there is no data on interrupt pin, the level is pulled high by arduino, and MCP23017 pulls that down to ground, only when required.
 
-Unfortunately some extra data stays on the interrupt buffer of MCP23017, and interrupt will not work correctly until the interrupt buffer is cleared. So there are some hooks in the code for some interrupt cleanup.
+When a button push (FALLING) detected, the corresponding MCP23017 pin was reprogrammed to RISING detection.
+
+Unfortunately there is a strange behaviour of the MCP23017. It keeps sending interrupts as long as the button is pressed, that is why the interrupt detection is changed runtime. Also, there is an "interrupt queue"-like thing inside, and interrupts will not work correctly until the interrupt buffer is cleared. So there are some extra hooks involved in the code for the interrupt cleanup.
 
 ## TODO
-Test/support sleep and powerdown modes.
+ - Test/support sleep and powerdown modes.
+ - Investigate whether is it possible to eliminate extra interrupt-queue cleaning hooks.
+ - Use different license for wider integration options.
+
+**Please fill free to post contribute!**
+
+## Tested on
+Library known to be working the following setups.
+
+Ide versions:
+ - Arduino 1.8.5
+ 
+Hardware:
+ - ESP8266
+ 
+**Please fill free to post an issue with your tested hardware!**
