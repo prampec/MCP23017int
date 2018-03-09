@@ -5,7 +5,7 @@ With this library you can easily set up an interrupt based setup for the MCP2301
 ## Highlights
  - Non blocking solution
  - It utilizes the Adafruit_MCP23017 for driving the i2c communication.
- - Theoretically you can set up more MCP23017-s with different i2c ports.
+ - Theoretically you can set up more MCP23017-s with different i2c ports. (In this case I recommend you to connect the interrupt pin to arduino via a 1K resistor to be on the safe side.)
  - Sets up MCP23017 interrupt pins as mirrored, so only one wire is required from either INTA or INTB.
  - Starts up input pins with internal pullups, so no external resistors required.
  - Both push and release are detected.
