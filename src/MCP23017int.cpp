@@ -68,7 +68,7 @@ void MCP23017int::processInterrupt()
     return;
   }
   uint8_t val = this->_mcp->getLastInterruptPinValue();
-  for(int i = 0; i < sizeof(*(this->_buttons)) / sizeof(MCP23017intButton); i++)
+  for(int i = 0; i < this->_size; i++)
   {
     if (this->_buttons[i].mcpPin == pin)
     {
