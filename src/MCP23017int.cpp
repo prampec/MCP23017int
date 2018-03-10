@@ -72,7 +72,7 @@ void MCP23017int::processInterrupt()
   {
     if (this->_buttons[i].mcpPin == pin)
     {
-      this->_buttons[i].callback(pin, val);
+      this->_buttons[i].callback(this, pin, val);
       break;
     }
   }

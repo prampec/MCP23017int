@@ -65,7 +65,7 @@
 #define ARDUINO_INT_PIN 2
 
 // -- Interrupt handler predefinitions
-void buttonCallback(byte mcpPin, byte action);
+void buttonCallback(MCP23017int* mcpInt, byte mcpPin, byte action);
 void arduinoInterruptHandler();
 
 Adafruit_MCP23017 mcp;
@@ -93,7 +93,7 @@ void loop() {
   mcpInt.checkInterrupt();
 }
 
-void buttonCallback(byte mcpPin, byte action)
+void buttonCallback(MCP23017int* mcpInt, byte mcpPin, byte action)
 {
   Serial.print("Pin ");
   Serial.print(mcpPin);

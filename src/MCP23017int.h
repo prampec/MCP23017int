@@ -29,7 +29,9 @@
 #define MCP23017INT_BUTTON_ACTION_PRESSED 0
 #define MCP23017INT_BUTTON_ACTION_RELEASED 1
 
-typedef void (*MCP23017intButtonCallback)(byte mcpPin, byte action);
+class MCP23017int;
+typedef void (*MCP23017intButtonCallback)(
+  MCP23017int* mcpInt, byte mcpPin, byte action);
 typedef struct MCP23017intButton
 {
   byte mcpPin;
