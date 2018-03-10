@@ -1,5 +1,5 @@
 /**
- * File: InterruptBasics.ino
+ * File: MoreExpanders.ino
  * Description:
  * MCP23017int is a library to make it easy to use the interrupts on the MCP23017 port expander.
  *
@@ -20,16 +20,18 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     Hardware setup for this example:
-    MCP23017 - GPA0 - connected to ground via a push button
-    MCP23017 - GPA1 - connected to ground via a push button
-    MCP23017 - A0,A1,A2 - connected to ground
-    MCP23017 - !RESET - connected to VCC via a 10K resistor
+    You are using two MCP23017s: MCP23017/1 and MCP23017/2
+    MCP23017/1,2 - GPA0 - connected to ground via a push button
+    MCP23017/1,2 - GPA1 - connected to ground via a push button
+    MCP23017/1   - A0,A1,A2 - connected to ground
+    MCP23017/2   - A0 - connected to VCC, A1,A2 - connected to ground
+    MCP23017/1,2 - !RESET - connected to VCC via a 10K resistor
     
-    MCP23017 Arduino
-    INTA     D2
-    SCL      A5
-    SDA      A4
-    GND      GND
+    MCP23017/1,2 Arduino
+    INTA         D2
+    SCL          A5
+    SDA          A4
+    GND          GND
 
     Hardware notes:
     - You can add more push buttons if you like. See button mapping below.
@@ -59,17 +61,28 @@
      8   GPB7 15
 */
 
+/**
+ * ######## WARNING! #########
+ * This example is not tested at all.
+ * Theoretically it should work. Please give me feedback!
+ * ###########################
+ */
+
 #include <Adafruit_MCP23017.h> // https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library from Library Manager
 #include <MCP23017int.h>
 
+// -- You might want to connect the individual expanders to dedicated
+// -- intrrupt pins.
 #define ARDUINO_INT_PIN 2
 
 // -- Interrupt handler predefinitions
 void buttonCallback(MCP23017int* mcpInt, byte mcpPin, byte action);
 void arduinoInterruptHandler();
 
-Adafruit_MCP23017 mcp;
-MCP23017int mcpInt;
+Adafruit_MCP23017 mcp1;
+Adafruit_MCP23017 mcp2;
+MCP23017int mcpInt1;
+MCP23017int mcpInt2;
 
 MCP23017intButton buttons[] = {
   { 0, buttonCallback },
@@ -79,8 +92,11 @@ MCP23017intButton buttons[] = {
 void setup() {
   Serial.begin(9600);
 
-  mcp.begin();
-  mcpInt.begin(&mcp, ARDUINO_INT_PIN, arduinoInterruptHandler,
+  mcp1.begin();
+  mcpInt1.begin(&mcp1, ARDUINO_INT_PIN, arduinoInterruptHandler,
+    buttons, sizeof(buttons) / sizeof(MCP23017intButton));
+  mcp2.begin(1);
+  mcpInt2.begin(&mcp2, ARDUINO_INT_PIN, arduinoInterruptHandler,
     buttons, sizeof(buttons) / sizeof(MCP23017intButton));
 
   Serial.println("Ready");
@@ -88,11 +104,13 @@ void setup() {
 
 void loop() {
   // put your main code here, but often call:
-  mcpInt.checkInterrupt();
+  mcpInt1.checkInterrupt();
+  mcpInt2.checkInterrupt();
 }
 
 void buttonCallback(MCP23017int* mcpInt, byte mcpPin, byte action)
 {
+  Serial.print(mcpInt == &mcpInt1 ? "Exp1 " : "Exp2 ");
   Serial.print("Pin ");
   Serial.print(mcpPin);
   Serial.print(" is ");
@@ -107,5 +125,6 @@ void buttonCallback(MCP23017int* mcpInt, byte mcpPin, byte action)
  */
  void arduinoInterruptHandler()
 {
-  mcpInt.interruptOccurred();
+  mcpInt1.interruptOccurred();
+  mcpInt2.interruptOccurred();
 }
